@@ -1,4 +1,3 @@
-// src\lib\db\queries\feeds.ts
 import { db } from "../index"; 
 import { feeds, users } from "../schema";
 import { eq } from "drizzle-orm";
@@ -24,7 +23,6 @@ export async function createFeed(userId: string, name: string, url: string) {
   return feed;
 }
 
-// src/lib/db/queries/feeds.ts
 export async function getAllFeeds() {
   const allFeeds = await db
     .select({
