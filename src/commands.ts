@@ -1,4 +1,3 @@
-// src/commands.ts
 import { setUser, readConfig } from "./config";
 import { createUser, getUserByName, deleteAllUsers, getUsers, User } from "./lib/db/queries/users";
 import { fetchFeed } from "./lib/rss";
@@ -31,7 +30,6 @@ export async function runCommand(registry: CommandsRegistry, cmdName: string, ..
 // ----------------------
 // Middleware
 // ----------------------
-// src/commands.ts
 export const middlewareLoggedIn = (handler: UserCommandHandler): CommandHandler => {
   return async (cmdName: string, ...args: string[]) => {
     const config = readConfig();
