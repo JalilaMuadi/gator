@@ -17,27 +17,26 @@ export type RSSFeed = {
 };
 
 export async function fetchFeed(feedURL: string): Promise<RSSFeed> {
-  // 1. Fetch the feed
+  // Fetch the feed
   const res = await fetch(feedURL, {
     headers: { "User-Agent": "gator" },
   });
   const xml = await res.text();
 
-  // 2. Parse the XML
+  // Parse the XML
   const parser = new XMLParser({
     ignoreAttributes: false,
     attributeNamePrefix: "@_",
   });
   const parsed = parser.parse(xml);
 
-  // 3. Extract the channel
+  // Extract the channel
   if (!parsed.rss || !parsed.rss.channel) {
     throw new Error("Invalid RSS feed: missing channel");
   }
 
   const channel = parsed.rss.channel;
 
-  // 4. Extract metadata
   const title = channel.title;
   const link = channel.link;
   const description = channel.description;
@@ -46,7 +45,6 @@ export async function fetchFeed(feedURL: string): Promise<RSSFeed> {
     throw new Error("Invalid RSS feed: missing title, link or description");
   }
 
-  // 5. Extract items
   let items: RSSItem[] = [];
   if (channel.item) {
     if (Array.isArray(channel.item)) {
